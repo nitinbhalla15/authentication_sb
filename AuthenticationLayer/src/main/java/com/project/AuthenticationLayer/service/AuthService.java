@@ -7,6 +7,7 @@ import com.project.AuthenticationLayer.entity.RegisterUser;
 import com.project.AuthenticationLayer.entity.UserRegisterDetails;
 import com.project.AuthenticationLayer.filter_service.CustomJWTService;
 import com.project.AuthenticationLayer.repo.UserRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -15,6 +16,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
+@Slf4j
 public class AuthService {
 
     @Autowired
@@ -30,6 +32,7 @@ public class AuthService {
     private AuthenticationManager authenticationManager;
 
     public AuthenticationResponse registerUser(RegisterUser user){
+        log.info("Inside registerUser method");
         UserRegisterDetails usr = UserRegisterDetails.builder()
                 .firstName(user.getFirstName())
                 .lastName(user.getLastName())
@@ -45,6 +48,7 @@ public class AuthService {
     }
 
     public AuthenticationResponse authentication(LoginDetails loginCreds){
+        log.info("Inside method authentication");
         authenticationManager.authenticate(
                  new UsernamePasswordAuthenticationToken(
                          loginCreds.getEmail_id(),
