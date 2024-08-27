@@ -55,8 +55,7 @@ public class AuthService {
                          loginCreds.getPassword()
                  )
         );
-        UserDetails usrDetails = usrRepo.findUserBySubject(loginCreds.getEmail_id())
-                .orElseThrow();
+        UserDetails usrDetails = usrRepo.findUserBySubject(loginCreds.getEmail_id()).orElse(null);
         String token = jwtService.generateTokenWithoutExtraClaims(usrDetails);
         return AuthenticationResponse.builder().token(token)
                 .message("Successfully fetched the token").build();
